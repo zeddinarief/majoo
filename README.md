@@ -1,4 +1,6 @@
-# majoo using Go
+# MAJOO login test using Go
+This is using Gin for routing framework and Gorm for Go ORM Mysql
+with service-object pattern 
 
 endpoint:
 POST /api/login
