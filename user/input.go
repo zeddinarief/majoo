@@ -11,10 +11,10 @@ type LoginInput struct {
 	Password string `json:"password" form:"password" binding:"required"`
 }
 
-// type FormUpdateUserInput struct {
-// 	ID          int
-// 	Username    string `json:"username" binding:"required"`
-// 	Password    string `json:"password" binding:"required"`
-// 	NamaLengkap string `json:"nama_lengkap" binding:"required"`
-// 	Error       error
-// }
+type FormUpdateUserInput struct {
+	ID          int
+	Username    string `json:"username" binding:"required"`
+	Password    string `json:"password" binding:"required"`
+	NamaLengkap string `json:"nama_lengkap" binding:"required"`
+	Error       error
+}

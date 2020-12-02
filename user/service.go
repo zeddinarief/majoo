@@ -105,20 +105,20 @@ func (s *service) GetAllUsers() ([]User, error) {
 	return users, nil
 }
 
-// func (s *service) UpdateUser(input FormUpdateUserInput) (User, error) {
-// 	user, err := s.repository.FindByID(input.ID)
-// 	if err != nil {
-// 		return user, err
-// 	}
+func (s *service) UpdateUser(input FormUpdateUserInput) (User, error) {
+	user, err := s.repository.FindByID(input.ID)
+	if err != nil {
+		return user, err
+	}
 
-// 	user.Username = input.Username
-// 	user.Password = input.Password
-// 	user.NamaLengkap = input.NamaLengkap
+	user.Username = input.Username
+	user.Password = input.Password
+	user.NamaLengkap = input.NamaLengkap
 
-// 	updatedUser, err := s.repository.Update(user)
-// 	if err != nil {
-// 		return updatedUser, err
-// 	}
+	updatedUser, err := s.repository.Update(user)
+	if err != nil {
+		return updatedUser, err
+	}
 
-// 	return updatedUser, nil
-// }
+	return updatedUser, nil
+}

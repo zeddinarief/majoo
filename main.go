@@ -30,7 +30,7 @@ func main() {
 	router := gin.Default()
 	api := router.Group("/api")
 
-	api.POST("/users", userHandler.RegisterUser)
+	api.POST("/register", userHandler.RegisterUser)
 	api.POST("/login", userHandler.Login)
 	api.POST("/foto", userHandler.UploadFoto)
 	router.Run()
