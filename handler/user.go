@@ -107,9 +107,9 @@ func (h *userHandler) UploadFoto(c *gin.Context) {
 		return
 	}
 
-	// currentUser := c.MustGet("currentUser").(user.User)
-	// userID := currentUser.ID
-	userID := 1
+	currentUser := c.MustGet("currentUser").(user.User)
+	userID := currentUser.ID
+	// userID := 1
 
 	path := fmt.Sprintf("images/%d-%s", userID, file.Filename)
 
@@ -137,14 +137,39 @@ func (h *userHandler) UploadFoto(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// func (h *userHandler) FetchUser(c *gin.Context) {
+func (h *userHandler) FetchUser(c *gin.Context) {
 
-// 	currentUser := c.MustGet("currentUser").(user.User)
+	currentUser := c.MustGet("currentUser").(user.User)
 
-// 	formatter := user.FormatUser(currentUser, "")
+	formatter := user.FormatUser(currentUser, "")
 
-// 	response := helper.APIResponse("Successfuly fetch user data", http.StatusOK, "success", formatter)
+	response := helper.APIResponse("Successfuly fetch user data", http.StatusOK, "success", formatter)
 
-// 	c.JSON(http.StatusOK, response)
+	c.JSON(http.StatusOK, response)
 
-// }
+}
+
+func (h *userHandler) DeleteUser(c *gin.Context) {
+	var input user.DeleteInput
+
+	err := c.ShouldBindJSON(&input)
+	if err != nil {
+		errors := helper.FormatValidationError(err)
+		errorMessage := gin.H{"errors": errors}
+
+		response := helper.APIResponse("Login failed", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	// currentUser := c.MustGet("currentUser").(user.User)
+	// userID := currentUser.ID
+
+	// err := h.userService.DeleteUser(userID)
+
+	data := gin.H{"is_deleted": true}
+	response := helper.APIResponse("User success deleted", http.StatusOK, "success", data)
+
+	c.Set("currentUser", "")
+	c.JSON(http.StatusOK, response)
+}

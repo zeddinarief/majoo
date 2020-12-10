@@ -32,7 +32,9 @@ func main() {
 
 	api.POST("/register", userHandler.RegisterUser)
 	api.POST("/login", userHandler.Login)
-	api.POST("/foto", userHandler.UploadFoto)
+	api.PUT("/foto", authMiddleware(authService, userService), userHandler.UploadFoto)
+	api.GET("/profile", authMiddleware(authService, userService), userHandler.FetchUser)
+	api.DELETE("/profile", authMiddleware(authService, userService), userHandler.DeleteUser)
 	router.Run()
 }
 

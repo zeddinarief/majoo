@@ -56,7 +56,7 @@ func (s *service) Login(input LoginInput) (User, error) {
 	}
 
 	if user.ID == 0 {
-		return user, errors.New("No user found on that username")
+		return user, errors.New("Username not found")
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
@@ -90,7 +90,7 @@ func (s *service) GetUserByID(ID int) (User, error) {
 	}
 
 	if user.ID == 0 {
-		return user, errors.New("No user found on with that ID")
+		return user, errors.New("ID user not found")
 	}
 
 	return user, nil
@@ -103,6 +103,15 @@ func (s *service) GetAllUsers() ([]User, error) {
 	}
 
 	return users, nil
+}
+
+func (s *service) DeleteUser(ID int) error {
+	err := s.repository.Delete(ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *service) UpdateUser(input FormUpdateUserInput) (User, error) {
